@@ -1,0 +1,7 @@
+﻿  ProcessingUtils.cpp
+c:\users\alist\documents\github\opencv-practice\opencvpractice\processingutils.cpp(100): warning C4018: '>': signed/unsigned mismatch
+c:\users\alist\documents\github\opencv-practice\opencvpractice\processingutils.cpp(50): warning C4101: 'e': unreferenced local variable
+c:\users\alist\documents\github\opencv-practice\opencvpractice\processingutils.cpp(88): warning C4101: 'e': unreferenced local variable
+  Main.cpp
+  Generating Code...
+  openCVPractice.vcxproj -> C:\Users\alist\Documents\GitHub\opencv-practice\openCVPractice\x64\Debug\openCVPractice.exe
