@@ -1,13 +1,59 @@
 #include "ProcessingUtils.h"
+#include "ObjectDetection.h"
 #include <time.h>
+using namespace cv;
 const std::string _image1Path = "img1.jpg";
 const std::string _image2Path = "img2.jpg";
 
 
 int main(int argC, char* argV[]) {
+	std::string input = "";
 	std::string image1 = "";
 	std::string image2 = "";
-	if (argC < 2) {
+	std::cout << "Please enter in which operation you would like to perform: \"Object Detection\" or \"Max Difference\". " << std::endl;
+	std::cin >> input;
+	if (input == "Object Detection.") {
+		// VideoCapture class for playing video for which faces to be detected
+		VideoCapture capture;
+		Mat frame, image;
+
+		// PreDefined trained XML classifiers with facial features
+		CascadeClassifier cascade, nestedCascade;
+		double scale = 1;
+
+		// Load classifiers from "opencv/data/haarcascades" directory 
+		nestedCascade.load("C:\opencv330\opencv\sources\data\haarcascades\haarcascade_eye_tree_eyeglasses.xml");
+
+		// Change path before execution 
+		cascade.load("C:\opencv330\opencv\sources\data\haarcascades\haarcascade_frontalcatface.xml");
+
+		// Start Video..1) 0 for WebCam 2) "Path to Video" for a Local Video
+		capture.open(0);
+		if (capture.isOpened())
+		{
+			// Capture frames from video and detect faces
+			std::cout << "Face Detection Started...." << std::endl;
+			while (1)
+			{
+				capture >> frame;
+				if (frame.empty())
+					break;
+				Mat frame1 = frame.clone();
+				ObjectDetection detector;
+				detector.detectAndDraw(frame1, cascade, nestedCascade, scale);
+				char c = (char)
+				cv::waitKey(10);
+
+				// Press q to exit from window
+				if (c == 27 || c == 'q' || c == 'Q')
+					break;
+			}
+		}
+		else
+			std::cout << "Could not Open Camera" << "\n";
+		return 0;
+	}
+	else if (input == "Max Difference") {
 		std::cout << "Please enter in the first image name and extension: ";
 		std::cin >> image1;
 		if (!std::cin)
@@ -16,7 +62,7 @@ int main(int argC, char* argV[]) {
 		std::cin >> image2;
 		if (!std::cin)
 			std::cin >> image2;
-	}
+	
 
 	if (image1 == "")
 		image1 = _image1Path;
@@ -96,6 +142,9 @@ int main(int argC, char* argV[]) {
 
 	// Wait till the user presses a key to close 
 	cv::waitKey(0);
+	return 0;
+	}
+	std::cout << "No valid input." << std::endl;
 	return 0;
 }
 
