@@ -1,3 +1,5 @@
+# This example follows the tutorial on http://adventuresinmachinelearning.com/keras-tutorial-cnn-11-lines/
+# Originally written by 
 from __future__ import print_function
 import keras
 from keras.datasets import mnist
