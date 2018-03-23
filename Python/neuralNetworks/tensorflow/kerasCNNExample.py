@@ -8,7 +8,7 @@ import matplotlib.pylab as plt
 
 batch_size = 128
 num_classes = 10
-epocs = 10
+epochs = 10
 
 #input image dimensions
 img_x, img_y = 28, 28
@@ -28,14 +28,14 @@ x_train = x_train.astype('float32')
 x_test = x_test.astype('float32')
 x_train /= 255
 x_test /= 255
-print('x_train_shape:', x_train_shape)
+print('x_train_shape:', x_train.shape)
 print(x_train.shape[0], 'train samples')
 print(x_test.shape[0], 'test samples')
 
 # convert class vectors to binary class matricies - this is for use in the 
 # categorical cross entropy loss below
-y_train = keras.utils.to_categorically(y_train, num_classes)
-y_test = keras.utils.to_categorically(y_test, num_classes)
+y_train = keras.utils.to_categorical(y_train, num_classes)
+y_test = keras.utils.to_categorical(y_test, num_classes)
 
 model = Sequential()
 model.add(Conv2D(32, kernel_size=(5,5), strides=(1,1),
@@ -48,7 +48,7 @@ model.add(Flatten())
 model.add(Dense(1000, activation='relu'))
 model.add(Dense(num_classes, activation='softmax'))
 model.compile(loss=keras.losses.categorical_crossentropy,
-			  optimizer=keras.optimizers.Adama(),
+			  optimizer=keras.optimizers.Adam(),
 			  metrics=['accuracy'])
 
 class AccuracyHistory(keras.callbacks.Callback):
